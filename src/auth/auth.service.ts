@@ -13,7 +13,7 @@ export class AuthService {
     private prisma: PrismaService,
     private jwt: JwtService,
     private config: ConfigService,
-  ) { }
+  ) {}
 
   async signup(dto: SignUpDto) {
     const hash = await argon.hash(dto.password);
@@ -24,6 +24,7 @@ export class AuthService {
           email: dto.email,
           password: hash,
           firstName: dto.firstName,
+          lastName: dto.lastName,
         },
         select: {
           id: true,

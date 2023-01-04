@@ -12,6 +12,9 @@ class SignUpDto {
   @IsString()
   @IsNotEmpty()
   firstName: string;
+
+  @IsString()
+  lastName: string;
 }
 
 class SignInDto {
