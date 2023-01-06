@@ -5,7 +5,6 @@ import { ForbiddenException, Injectable } from '@nestjs/common';
 import * as argon from 'argon2';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 import { JwtService } from '@nestjs/jwt';
-import { async } from 'rxjs';
 
 @Injectable()
 export class AuthService {
@@ -66,10 +65,7 @@ export class AuthService {
     return this.signToken(user.id, user.email);
   }
 
-  async signToken(
-    userId: number,
-    email: string,
-  ): Promise<{ access_token: string }> {
+  async signToken(userId: number, email: string) {
     const payload = {
       sub: userId,
       email,
@@ -79,8 +75,8 @@ export class AuthService {
       expiresIn: '15m',
       secret: secret_key,
     });
-
     return {
+      user_id: userId,
       access_token: token,
     };
   }
